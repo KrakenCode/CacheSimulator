@@ -10,4 +10,4 @@ class WriteThrough:
                 cache_line["valid"] = 0 
 
     def upon_eviction(self, address):
-        return 
+        pass
