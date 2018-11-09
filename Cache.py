@@ -78,6 +78,7 @@ class Cache:
     def read(self, addr):
 
         if type(addr) == tuple:
+            print('---------------------------------------------')
             tag, set_id, offset = addr
         else:
             tag, set_id, offset = self._parse_addr(addr)
