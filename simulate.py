@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 import argparse
 import re
-
+import ReplacementPolicies
+from WriteBack import WriteBack
+from WriteThrough import WriteThrough
+from Cache import Cache
+from Cache import Memory
 
 # Parsing the command line
 
@@ -43,13 +47,34 @@ print ('write_policy\t\t=', cmd_args.write_policy)
 print ('trace_file\t\t=', cmd_args.trace_file, '\n\n')
 
 
+# Get the correct replacement_policy function to pass to cache
+if cmd_args.replacement_policy == 'FIFO':
+    replacement_policy = ReplacementPolicies.pick_FIFO
+elif cmd_args.replacement_policy == 'MRU':
+    replacement_policy = ReplacementPolicies.pick_MRU
+else:
+    replacement_policy = ReplacementPolicies.pick_LRU
 
-# # Creating the cache with the provided specs
-# cache = Cache(cmd_args.cache_size,
-#               cmd_args.way_count,
-#               cmd_args.cache_line_size,
-#               cmd_args.replacement_policy,
-#               cmd_args.write_policy)
+
+
+# Get the correct write policy class to pass to cache
+if cmd_args.write_policy == 'WRITE_BUFFER':
+    # TODO: change to write buffer once implemented
+    write_policy = WriteBack()
+elif cmd_args.write_policy == 'WRITE_THROUGH':
+    write_policy = WriteThrough()
+else:
+    write_policy = WriteBack()
+
+
+
+# Creating the cache with the provided specs
+cache = Cache(cmd_args.cache_size,
+              cmd_args.way_count,
+              cmd_args.cache_line_size,
+              replacement_policy,
+              write_policy,
+              Memory())
 
 line_count = 0
 miss_count = 0
@@ -89,11 +114,13 @@ with open(cmd_args.trace_file, 'r') as infile:
         # print('group 1:', op_type, 'group 2:', matchObj.group(2), "int_addr", data_addr)
 
         if op_type == 'R':
-            # miss = cache.read(data_addr)
-            miss = 1
+            miss = cache.read(data_addr)
+            # print(miss)
+            # miss = 1
         elif op_type == 'W':
-            # miss = cache.write(data_addr)
-            miss = 0
+            miss = cache.write(data_addr)
+            # print(miss)
+            # miss = 0
         else:
             print("Operation was neither read or write. Skipping Line ", line_count, ": ", line, sep='')
 
