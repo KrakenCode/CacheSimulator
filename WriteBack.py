@@ -14,4 +14,4 @@ class WriteBack:
 
 
     def upon_eviction(self, address):
-        print("Writing to memory")
+        return
