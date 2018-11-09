@@ -83,7 +83,7 @@ class Cache:
         potential_set = self.sets[set_id]
 
         if potential_set.read(tag):
-            return True 
+            return self.hit_cost 
         else:
             
             evictable_idx = self.eviction_policy(potential_set)
