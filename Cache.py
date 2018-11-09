@@ -66,8 +66,8 @@ class Cache:
         '''
 
         offset = addr & self.cache_line_size - 1
-        set_id = addr & ((self.set_count - 1) << math.log(self.cache_line_size, 2))
-        tag = addr >> (math.log(self.set_count, 2)  + math.log(self.cache_line_size, 2))
+        set_id = addr & ((self.set_count - 1) << int(math.log(self.cache_line_size, 2)))
+        tag = addr >> (int(math.log(self.set_count, 2))  + int(math.log(self.cache_line_size, 2)))
 
         return tag, set_id, offset
 
