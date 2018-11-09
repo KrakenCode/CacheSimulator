@@ -95,7 +95,7 @@ class Cache:
             
             evicted = potential_set.ways[evictable_idx]
 
-            self.write_policy.upon_eviction((tag, set_id, offset), evicted)
+            self.write_policy.upon_eviction((tag, set_id, offset))
 
             evicted['valid'] = 1
             evicted['tag'] = tag
