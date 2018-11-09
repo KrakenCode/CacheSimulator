@@ -21,16 +21,16 @@ class CacheSet:
             } for i in range(way_count)
         ]
         self.timer = 0
-    
+
     def read(self, tag):
         self.timer += 1
 
         for way in self.ways:
             if tag == way['tag']:
-                way['last_access'] = self.timer 
-                return True 
-        return False 
-    
+                way['last_access'] = self.timer
+                return True
+        return False
+
     def write(self, tag):
         self.timer += 1
 
@@ -40,7 +40,7 @@ class CacheSet:
 class Cache:
 
     def __init__(self, cache_size, way_count, cache_line_size, replacement_policy, write_policy, parent, inclusive=True, hit_cost=0):
-        
+
         self.set_count = int(cache_size / way_count / cache_line_size)
 
         self.cache_size = cache_size
@@ -81,7 +81,7 @@ class Cache:
     def read(self, addr):
 
         if type(addr) == tuple:
-            print('---------------------------------------------')
+            # print('---------------------------------------------')
             tag, set_id, offset = addr
         else:
             tag, set_id, offset = self._parse_addr(addr)
@@ -89,16 +89,16 @@ class Cache:
         potential_set = self.sets[set_id]
 
         if potential_set.read(tag):
-            return self.hit_cost 
+            return self.hit_cost
         else:
-            
+
             evictable_idx = self.eviction_policy(potential_set)
-            
+
             miss_time = self.parent.read(addr)
 
             if miss_time == 0:
                 return miss_time + self.hit_cost
-            
+
             evicted = potential_set.ways[evictable_idx]
 
             self.write_policy.upon_eviction((tag, set_id, offset))
@@ -110,7 +110,7 @@ class Cache:
             evicted['dirty'] = 0
 
             return miss_time + self.hit_cost
-        
+
 
     def write(self, addr):
         return self.hit_cost + self.write_policy.write(self._parse_addr(addr))
@@ -118,11 +118,9 @@ class Cache:
 class Memory:
 
     def __init__(self):
-        pass 
-    
+        pass
+
     def read(self, addr):
-        return 1 
+        return 1
     def write(self, addr):
         return 1
-
-    

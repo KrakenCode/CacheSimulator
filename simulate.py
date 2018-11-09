@@ -86,7 +86,7 @@ line_re = re.compile(r'^\s*.+:\s+(\w)\s+(\w+)')
 
 # opening and reading the trace file
 with open(cmd_args.trace_file, 'r') as infile:
-    for line_num, line in enumerate(infile):
+    for line in infile:
 
         miss = 0
 
@@ -98,6 +98,7 @@ with open(cmd_args.trace_file, 'r') as infile:
         matchObj = line_re.search(line)
         if matchObj is None:
             print("Invalid Regex parse. Skipping line ", line_count, ": ", line, sep='')
+            line_count -= 1
             continue
 
         # the operation R or W (read or write)
