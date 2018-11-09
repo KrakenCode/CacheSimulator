@@ -10,7 +10,7 @@ class WriteBack:
                 cache_line["dirty"] = 1
                 return 0
 
-        cache.read(address)
+        self.cache.read(address)
 
 
     def upon_eviction(self, address):
