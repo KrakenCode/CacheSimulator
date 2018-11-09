@@ -113,7 +113,7 @@ class Cache:
         
 
     def write(self, addr):
-        return self.hit_cost + self.write_policy(self._parse_addr(addr))
+        return self.hit_cost + self.write_policy.write(self._parse_addr(addr))
 
 class Memory:
 
