@@ -16,8 +16,8 @@ class CacheSet:
                 'valid': 0,
                 'dirty': 0,
                 'data': 0,
-                'last_access': None,
-                'entry_time': None
+                'last_access': 0,
+                'entry_time': 0
             } for i in range(way_count)
         ]
         self.timer = 0
