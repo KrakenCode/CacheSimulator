@@ -19,5 +19,4 @@ class WriteBack:
             if tag == cache_line["tag"]:
                 if cache_line["dirty"] == 1:
                     return 1
-                else:
-                    return 0
+        return 0
