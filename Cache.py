@@ -41,7 +41,7 @@ class Cache:
 
     def __init__(self, cache_size, way_count, cache_line_size, replacement_policy, write_policy, parent, inclusive=True, hit_cost=0):
 
-        self.set_count = int(cache_size / way_count / cache_line_size)
+        self.set_count = int(cache_size / cache_line_size / way_count)
 
         self.cache_size = cache_size
         self.way_count = way_count

@@ -11,12 +11,12 @@ from Cache import Memory
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cache_size', dest='cache_size',
-                    type=int, default=8388608,
-                    help='Size of the cache in bits, default is 8388608 (1MB)')
+                    type=int, default=1048576,
+                    help='Size of the cache in bytes, default is 1048576 (1MB)')
 
 parser.add_argument('--line_size', dest='cache_line_size',
                     type=int, default=64,
-                    help='Size of the cache line in bits, default is 64')
+                    help='Size of the cache line in bytes, default is 64')
 
 parser.add_argument('--way_count', dest='way_count',
                     type=int, default=16,
@@ -39,12 +39,12 @@ parser.add_argument('trace_file', type=str,
 cmd_args = parser.parse_args()
 
 print('Simulator running with arguments:')
-print ('cache_size in bits\t=', cmd_args.cache_size)
-print ('cache_line_size in bits\t=', cmd_args.cache_line_size)
-print ('way_count\t\t=', cmd_args.way_count)
-print ('replacement_policy\t=', cmd_args.replacement_policy)
-print ('write_policy\t\t=', cmd_args.write_policy)
-print ('trace_file\t\t=', cmd_args.trace_file, '\n\n')
+print ('cache_size in bytes\t\t=', cmd_args.cache_size)
+print ('cache_line_size in bytes\t=', cmd_args.cache_line_size)
+print ('way_count\t\t\t=', cmd_args.way_count)
+print ('replacement_policy\t\t=', cmd_args.replacement_policy)
+print ('write_policy\t\t\t=', cmd_args.write_policy)
+print ('trace_file\t\t\t=', cmd_args.trace_file, '\n\n')
 
 
 # Get the correct replacement_policy function to pass to cache
