@@ -124,6 +124,8 @@ with open(cmd_args.trace_file, 'r') as infile:
             # miss = 0
         else:
             # print("Operation was neither read or write. Skipping Line ", line_count, ": ", line, sep='')
+            line_count -= 1
+            continue
 
         if miss == 1:
             miss_count += 1
