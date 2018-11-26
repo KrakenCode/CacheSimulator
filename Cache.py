@@ -55,7 +55,7 @@ class Cache:
 
         self.sets = [CacheSet(way_count) for i in range(self.set_count)]
 
-        print('Cache Size: {}, way_count: {}, cachelinesize: {}, set count: {}, actual set count: {}'.format(cache_size, way_count, cache_line_size, self.set_count, cache_size / way_count / cache_line_size))
+        # print('Cache Size: {}, way_count: {}, cachelinesize: {}, set count: {}, actual set count: {}'.format(cache_size, way_count, cache_line_size, self.set_count, cache_size / way_count / cache_line_size))
 
     def _parse_addr(self, addr):
 
@@ -67,7 +67,7 @@ class Cache:
         address is binary
         '''
 
-        offset = addr & self.cache_line_size - 1
+        offset = addr & (self.cache_line_size - 1)
         # set_id = addr & ((self.set_count - 1) << int(math.log(self.cache_line_size, 2)))
 
         set_id = addr >> int(math.log(self.cache_line_size, 2)) & (self.set_count - 1)

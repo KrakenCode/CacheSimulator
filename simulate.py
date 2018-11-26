@@ -38,13 +38,13 @@ parser.add_argument('trace_file', type=str,
 
 cmd_args = parser.parse_args()
 
-print('Simulator running with arguments:')
-print ('cache_size in bytes\t\t=', cmd_args.cache_size)
-print ('cache_line_size in bytes\t=', cmd_args.cache_line_size)
-print ('way_count\t\t\t=', cmd_args.way_count)
-print ('replacement_policy\t\t=', cmd_args.replacement_policy)
-print ('write_policy\t\t\t=', cmd_args.write_policy)
-print ('trace_file\t\t\t=', cmd_args.trace_file, '\n\n')
+# print('Simulator running with arguments:')
+# print ('cache_size in bytes\t\t=', cmd_args.cache_size)
+# print ('cache_line_size in bytes\t=', cmd_args.cache_line_size)
+# print ('way_count\t\t\t=', cmd_args.way_count)
+# print ('replacement_policy\t\t=', cmd_args.replacement_policy)
+# print ('write_policy\t\t\t=', cmd_args.write_policy)
+# print ('trace_file\t\t\t=', cmd_args.trace_file, '\n\n')
 
 
 # Get the correct replacement_policy function to pass to cache
@@ -97,7 +97,7 @@ with open(cmd_args.trace_file, 'r') as infile:
         line = line.strip()
         matchObj = line_re.search(line)
         if matchObj is None:
-            print("Invalid Regex parse. Skipping line ", line_count, ": ", line, sep='')
+            # print("Invalid Regex parse. Skipping line ", line_count, ": ", line, sep='')
             line_count -= 1
             continue
 
@@ -108,7 +108,7 @@ with open(cmd_args.trace_file, 'r') as infile:
         try:
             data_addr = int(matchObj.group(2), 16)
         except:
-            print("Invalid Hex conversion. Skipping line ", line_count, ": ", line, sep='')
+            # print("Invalid Hex conversion. Skipping line ", line_count, ": ", line, sep='')
             continue
 
 
@@ -123,7 +123,7 @@ with open(cmd_args.trace_file, 'r') as infile:
             # print(miss)
             # miss = 0
         else:
-            print("Operation was neither read or write. Skipping Line ", line_count, ": ", line, sep='')
+            # print("Operation was neither read or write. Skipping Line ", line_count, ": ", line, sep='')
 
         if miss == 1:
             miss_count += 1
