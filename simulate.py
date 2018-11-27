@@ -29,7 +29,7 @@ parser.add_argument('--replacement_policy', dest='replacement_policy',
 
 parser.add_argument('--write_policy', dest='write_policy',
                     type=str, default='WRITE_BACK',
-                    choices=['WRITE_BACK', 'WRITE_THROUGH', 'WRITE_BUFFER'],
+                    choices=['WRITE_BACK', 'WRITE_THROUGH'],
                     help='Default is WRITE_BACK')
 
 parser.add_argument('trace_file', type=str,
@@ -58,10 +58,7 @@ else:
 
 
 # Get the correct write policy class to pass to cache
-if cmd_args.write_policy == 'WRITE_BUFFER':
-    # TODO: change to write buffer once implemented
-    write_policy = WriteBack()
-elif cmd_args.write_policy == 'WRITE_THROUGH':
+if cmd_args.write_policy == 'WRITE_THROUGH':
     write_policy = WriteThrough()
 else:
     write_policy = WriteBack()
